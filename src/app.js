@@ -1,49 +1,43 @@
-import React from "react";
+import React from 'react';
 
-import "./app.scss";
+import './app.scss';
+import { useState } from 'react';
+import axios from 'axios'
 
 // Let's talk about using index.js and some other name in the component folder
 // There's pros and cons for each way of doing this ...
-import Header from "./components/header";
-import Footer from "./components/footer";
-import Form from "./components/form";
-import Results from "./components/results";
+import Header from './components/header';
+import Footer from './components/footer';
+import Form from './components/form';
+import Results from './components/results';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: null,
-      requestParams: {},
-    };
-  }
+function App(props) {
 
-  callApi = (requestParams) => {
+  const [state, setState] = useState({ data: null, requestParams: {} });
+
+
+  const callApi = async (requestParams,body) => {
     // mock output
+    
+    const dataurl = await axios.get(requestParams.url);
     const data = {
-      count: 2,
-      results: [
-        { name: "fake thing 1", url: "http://fakethings.com/1" },
-        { name: "fake thing 2", url: "http://fakethings.com/2" },
-      ],
+      headers: [dataurl.headers], results: {data:dataurl.data},
     };
-    this.setState({ data, requestParams });
-  };
-
-  render() {
-    return (
-      <React.Fragment>
-        <Header />
-        <div className="div1">
-          Request Method: {this.state.requestParams.method}
-        </div>
-        <div className="div1">URL: {this.state.requestParams.url}</div>
-        <Form handleApiCall={this.callApi} />
-        <Results data={this.state.data} />
-        <Footer />
-      </React.Fragment>
-    );
+    setState({ data, requestParams });
   }
+
+
+  return (
+    <React.Fragment>
+      <Header />
+      <div  className="div1">Request Method: {state.requestParams.method}</div>
+      <div className="div1"> URL: {state.requestParams.url}</div>
+      <Form handleApiCall={callApi} />
+      <Results data={state.data} />
+      <Footer />
+    </React.Fragment>
+  );
+
 }
 
 export default App;
