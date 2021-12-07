@@ -1,9 +1,12 @@
+import React from "react";
+import Loading from "../loading/loading";
+import JSONPretty from 'react-json-pretty';
 
 function Results (props) {
   
   return (
     <section>
-<pre>{props.data ? JSON.stringify(props.data, undefined, 2) : null}</pre>
+  <pre>{props.data ? <JSONPretty data={props.data} /> : <Loading />}</pre>
     </section>
   );
 }
