@@ -40,21 +40,21 @@ function Form(props) {
     <>
       <form onSubmit={handleSubmit}>
         <label>
-          <span>URL: </span>
-          <input name="url" type="text" onChange={urlSetState} />
-          <button type="submit">GO!</button>
+          <span class="url">URL: </span>
+          <input name="url" type="text" onChange={urlSetState}  data-testid="input"/>
+          <button type="submit"  data-testid="Go"> GO!</button>
         </label>
         <label className="methods">
-          <span id="get" onClick={methodSetState}>
+          <span id="get" onClick={methodSetState} className='btn'  data-testid="get">
             GET
           </span>
-          <span id="post" onClick={textSetState}>
+          <span id="post" onClick={textSetState} className='btn'  data-testid="post">
             POST
           </span>
-          <span id="put" onClick={textSetState}>
+          <span id="put" onClick={textSetState} className='btn'  data-testid="put">
             PUT
           </span>
-          <span id="delete" onClick={methodSetState}>
+          <span id="delete" onClick={methodSetState} className='btn'  data-testid="delete">
             DELETE
           </span>
         </label>
